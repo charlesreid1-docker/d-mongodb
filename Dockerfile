@@ -10,6 +10,7 @@ RUN DEBIAN_FRONTEND=noninteractive && \
     service mongod stop && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+
 # Add scripts
 ADD scripts /scripts
 RUN chmod +x /scripts/*.sh
@@ -20,8 +21,8 @@ ENTRYPOINT ["/scripts/run.sh"]
 CMD [""]
 
 # Expose listen port
-EXPOSE 27017
 EXPOSE 28017
+EXPOSE 27017
 
 # Expose our data volumes
 VOLUME ["/data"]
