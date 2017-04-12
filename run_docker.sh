@@ -4,10 +4,11 @@
 # 
 # http://charlesreid1.com/wiki/Docker/Basics
 
+#	--network=host \
 docker run \
-	--network=host \
 	-p 28017:28017 \
 	-p 27017:27017 \
 	-v /opt/mongodb:/data/db \
+	-d \
 	-ti cmr_mongodb2 
 
