@@ -1,3 +1,30 @@
+# d-mongodb
+
+This repo contains files for creating a MongoDB Docker container.
+
+This uses the image from [frodenas on github](https://github.com/frodenas/docker-mongodb/).
+The main change is that we are adding a build script and a run script,
+and a few tweaks to the Dockerfile.
+
+To get the MongoDB authentication credentials for the docker container,
+check the logs using Docker - the credentials are printed to the logs.
+
+```
+$ docker logs inspiring_malachai
+```
+
+The remainder of the document that follows is from 
+[frodenas on github](https://github.com/frodenas/docker-mongodb/).
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+----
+
 # MongoDB Dockerfile
 
 A Dockerfile that produces a Docker Image for [MongoDB](http://www.mongodb.org/).
