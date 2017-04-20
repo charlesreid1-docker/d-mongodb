@@ -4,7 +4,6 @@
 # 
 # http://charlesreid1.com/wiki/Docker/Basics
 
-#	--network=host \
 docker run \
 	-p 28017:28017 \
 	-p 27017:27017 \
