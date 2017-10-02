@@ -1,5 +1,5 @@
-FROM frodenas/ubuntu
-MAINTAINER Ferran Rodenas <frodenas@gmail.com>
+FROM ubuntu
+MAINTAINER charles@charlesreid1.com
 
 # Install MongoDB 3.0
 RUN DEBIAN_FRONTEND=noninteractive && \
@@ -21,8 +21,10 @@ ENTRYPOINT ["/scripts/run.sh"]
 CMD [""]
 
 # Expose listen port
-EXPOSE 28017
 EXPOSE 27017
+
+# Don't expose MongoDB web interface unless needed
+#EXPOSE 28017
 
 # Expose our data volumes
 VOLUME ["/data"]

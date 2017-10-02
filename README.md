@@ -2,7 +2,14 @@
 
 This repo contains files for creating a MongoDB Docker container.
 
-This uses the image from [frodenas on github](https://github.com/frodenas/docker-mongodb/).
+## TL; DR
+
+Run `make`.
+
+## MongoDB Docker Image
+
+This Docker container is based on the image from 
+[frodenas on github](https://github.com/frodenas/docker-mongodb/).
 The main change is that we are adding a build script and a run script,
 and a few tweaks to the Dockerfile.
 
@@ -13,51 +20,60 @@ check the logs using Docker - the credentials are printed to the logs.
 $ docker logs inspiring_malachai
 ```
 
-The remainder of the document that follows is from 
-[frodenas on github](https://github.com/frodenas/docker-mongodb/).
+## MongoDB Docker Image
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-
-----
-
-# MongoDB Dockerfile
-
-A Dockerfile that produces a Docker Image for [MongoDB](http://www.mongodb.org/).
-
-## MongoDB version
-
-The `master` branch currently hosts MongoDB 3.0.
-
-Different versions of MongoDB are located at the github repo [branches](https://github.com/frodenas/docker-mongodb/branches).
-
-## Usage
-
-### Build the image
-
-To create the image `frodenas/mongodb`, execute the following command on the `docker-mongodb` folder:
+Two scripts do the building and running of the Docker image.
+Don't call them directly - use the Makefile.
 
 ```
-$ docker build -t frodenas/mongodb .
+$ make
 ```
 
-### Run the image
+This should bind port 27017 from the host machine 
+to port 27017 on the container.
 
-To run the image and bind to host port 27017:
+## Building the Docker Container
+
+To build the Docker container, use the Makefile.
+
+The `build_mongodb.sh` script will do the following:
+* Build the Docker container using the Dockerfile
+
+## Running the Docker Container
+
+To run the Docker container, use the Makefile.
+
+This script ask you to open the firewall of the machine
+running the Docker container to expose the 
+container's service to the outside world.
+
+The `run_mongodb.sh` script will do the following:
+* Mount /wifi in the host machine to /wifi in the container
+* Map port X on the host machine to port X in the container (X is specified as the first command line argument)
+
+## Container Actions
+
+The Dockerfile will do the following:
+* Set up MongoDB aptitude repository for MongoDB 3.0
+* Mount local `/opt/mongodb` to container `/data/db`
+
+## Test MongoDB
+
+The `test/` directory contains two Python scripts to test out the MongoDB:
 
 ```
-$ docker run -d --name mongodb -p 27017:27017 frodenas/mongodb
+$ cd test/
+$ python test_mongo_insert.py
+$ python test_mongo_retrieve.py
 ```
 
-If you want also to expose the MongoDB http interface, you will need also to expose port 28017:
+Run them in that order.
 
-```
-$ docker run -d --name mongodb -p 27017:27017 -p 28017:28017 frodenas/mongodb --httpinterface
-```
+## Notes
+
+* Different versions of MongoDB are located at the github repo [frodenas/docker-mongodb](https://github.com/frodenas/docker-mongodb/branches).
+
+### User Credentials
 
 The first time you run your container,  a new user `mongo` with all privileges will be created with a random password.
 To get the password, check the logs of the container by running:
@@ -77,8 +93,6 @@ MongoDB Role: "dbAdminAnyDatabase"
 ========================================================================
 ```
 
-#### Credentials
-
 If you want to preset credentials instead of a random generated ones, you can set the following environment variables:
 
 * `MONGODB_USERNAME` to set a specific username
@@ -95,7 +109,7 @@ $ docker run -d \
     frodenas/mongodb
 ```
 
-#### Databases
+### Databases
 
 If you want to create a database at container's boot time, you can set the following environment variables:
 
@@ -114,29 +128,33 @@ $ docker run -d \
     frodenas/mongodb
 ```
 
-#### Extra arguments
+### Extra arguments
 
-When you run the container, it will start the MongoDB server without any arguments. If you want to pass any arguments,
+When you run the container, it will start the 
+MongoDB server without any arguments. 
+If you want to pass any arguments,
 just add them to the `run` command:
 
 ```
-$ docker run -d --name mongodb -p 27017:27017 frodenas/mongodb --smallfiles
+$ docker run \
+	-d --name mongodb \
+	-p 27017:27017 \
+	mongodb \
+	--smallfiles
 ```
 
-#### Persistent data
+### Persistent data
 
-The MongoDB server is configured to store data in the `/data` directory inside the container. You can map the
-container's `/data` volume to a volume on the host so the data becomes independent of the running container:
+MongoDB will store data in `/data`.
+Map `/data` to the host to keep data persistent.
 
 ```
 $ mkdir -p /tmp/mongodb
+
 $ docker run -d \
     --name mongodb \
     -p 27017:27017 \
     -v /tmp/mongodb:/data \
-    frodenas/mongodb
+    mongodb
 ```
 
-## Copyright
-
-Copyright (c) 2014 Ferran Rodenas. See [LICENSE](https://github.com/frodenas/docker-mongodb/blob/master/LICENSE) for details.
