@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # 
 # Run the docker container
 # 
@@ -11,28 +11,21 @@ function usage {
 	echo ""
 	echo "run_mongodb.sh script:"
 	echo "run the mongodb docker container."
-	echo "specify a port number for mongodb to open:"
 	echo ""
-	echo "        ./run_mongodb.sh 27017"
+	echo "        ./run_mongodb.sh"
 	echo ""
 }
 
 
-# This doesn't care if you don't give it a port number.
-# Change this code if you want to specify the MongoDB port number.
-if [[ 1==1 || "$#" -ne 1 || $1 =~ "[0-9]\{1,5\}" ]];
-then
-	usage
-else
+docker run \
+	--network=host \
+	-p 27017:27017 \
+	-p 28017:28017 \
+	-v /opt/mongodb:/data/db \
+	-d \
+	-ti jupitermongo
 
-	docker run \
-		--network=host \
-		-p 27017:27017 \
-		-v /opt/mongodb:/data/db \
-		-d \
-		-ti cmr_mongodb2 
+# Add this to expose the web interface for MongoDB
+# (also update the Dockerfile):
+#-p 28017:28017 \
 
-	# Add this to expose the web interface for MongoDB
-	# (also update the Dockerfile):
-		#-p 28017:28017 \
-fi

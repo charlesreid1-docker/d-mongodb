@@ -26,6 +26,6 @@ then
 	usage
 else
 
-	docker build -t cmr_mongodb2 .
+	docker build -t jupitermongo .
 
 fi
