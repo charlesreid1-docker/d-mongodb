@@ -22,8 +22,5 @@ CMD [""]
 # Expose listen port
 EXPOSE 27017
 
-# web interface
-EXPOSE 28017
-
 # Expose our data volumes
 VOLUME ["/data"]
