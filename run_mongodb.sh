@@ -18,11 +18,13 @@ function usage {
 
 
 docker run \
-	--network=host \
-	-p 27017:27017 \
-	-v /opt/mongodb:/data/db \
-	-d \
-	-ti jupitermongo
+    --name happy_mongo \
+    -p 27017:27017 \
+    -v /opt/mongodb:/data/db \
+    -d \
+    -ti jupitermongo
+
+#	--network=host \
 
 # Add this to expose the web interface for MongoDB
 # (also update the Dockerfile):
