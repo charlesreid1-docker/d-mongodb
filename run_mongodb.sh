@@ -20,7 +20,6 @@ function usage {
 docker run \
 	--network=host \
 	-p 27017:27017 \
-	-p 28017:28017 \
 	-v /opt/mongodb:/data/db \
 	-d \
 	-ti jupitermongo
