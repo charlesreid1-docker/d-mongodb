@@ -19,7 +19,8 @@ function usage {
 
 docker run \
     --name happy_mongo \
-    -p 27017:27017 \
+    -p 192.168.125.28:27017:27017 \
+    -p 10.6.0.1:27017:27017 \
     -v /opt/mongodb:/data/db \
     -d \
     -ti jupitermongo
