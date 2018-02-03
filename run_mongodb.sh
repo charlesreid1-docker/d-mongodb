@@ -16,8 +16,8 @@ function usage {
     echo ""
 }
 
-#debug=false
-debug=true
+debug=false
+#debug=true
 
 if [ "$debug" == true ]; then
 
@@ -28,7 +28,7 @@ if [ "$debug" == true ]; then
         -ti jupitermongo \
         /bin/bash
 
-else:
+else
 
     docker run \
         --name happy_mongo \
