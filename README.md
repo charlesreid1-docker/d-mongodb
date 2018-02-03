@@ -158,3 +158,37 @@ $ docker run -d \
     mongodb
 ```
 
+
+
+---
+
+
+# Notes
+
+## A Big Dumb Runaround
+
+I wasted a lot of time trying to debug
+a problem I could never quite chase down,
+with inconsistent behaviors and contradictory
+behavior. 
+
+But once I turned on journaling with the 
+--journal flag, that seemed to fix the 
+issues.
+
+What I would see was, sometimes starting
+the container interactively would go off 
+without a hitch, and sometimes it would 
+say that localhost port 27017 connection
+was refused.
+
+Ultimately this seemed to be a problem
+with a lock file (go figure).
+Because we have a persistent
+data directory, an existing 
+lock file was probably screwing
+everything up.
+
+
+
+
