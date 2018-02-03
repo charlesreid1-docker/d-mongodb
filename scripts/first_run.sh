@@ -1,6 +1,7 @@
 #!/bin/bash
 USER=${MONGODB_USERNAME:-mongo}
-PASS=${MONGODB_PASSWORD:-$(pwgen -s -1 16)}
+#PASS=${MONGODB_PASSWORD:-$(pwgen -s -1 16)}
+PASS=${MONGODB_PASSWORD:-password}
 DB=${MONGODB_DBNAME:-admin}
 if [ ! -z "$MONGODB_DBNAME" ]
 then
@@ -15,7 +16,7 @@ while ! nc -vz localhost 27017; do sleep 1; done
 
 # Create User
 echo "Creating user: \"$USER\"..."
-mongo $DB --eval "db.createUser({ user: '$USER', pwd: '$PASS', roles: [ { role: '$ROLE', db: '$DB' } ] });"
+/usr/bin/mongo $DB --eval "db.createUser({ user: '$USER', pwd: '$PASS', roles: [ { role: '$ROLE', db: '$DB' } ] });"
 
 # Stop MongoDB service
 /usr/bin/mongod --dbpath /data --shutdown
