@@ -200,5 +200,14 @@ script.
 and repair stuff and not NOT use journaling, etc.
 
 
+## Startup Script
+
+Call the included startup script 
+from `/etc/rc.local` as a regular
+user as follows:
+
+```
+su charles -c '/path/to/script.sh
+```
 
 
