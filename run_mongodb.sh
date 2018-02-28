@@ -7,9 +7,11 @@
 #
 # Can bind the interface to an IP at the docker layer:
 #
-#     -p 127.0.0.1:27017:27017
+#     -p <bind-ip>:27017:27017
 #
 # http://charlesreid1.com/wiki/Docker/Basics
+
+HOSTIP="10.6.0.2"
 
 debug=false
 #debug=true
@@ -19,8 +21,9 @@ docker ps -qa | xargs docker rm
 if [ "$debug" == true ]; then
 
     docker run \
+        --rm \
         --name happy_mongo \
-        -p 127.0.0.1:27017:27017 \
+        -p ${HOSTIP}:27017:27017 \
         -v /opt/mongodb:/data \
         -ti jupitermongo \
         /bin/bash
@@ -28,8 +31,9 @@ if [ "$debug" == true ]; then
 else
 
     docker run \
+        --rm \
         --name happy_mongo \
-        -p 127.0.0.1:27017:27017 \
+        -p ${HOSTIP}:27017:27017 \
         -v /opt/mongodb:/data \
         -d \
         -ti jupitermongo 
