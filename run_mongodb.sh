@@ -4,7 +4,11 @@
 # 
 # Input traffic only, via specified port.
 # Mount volume being synced, too: /opt/mongodb
-# 
+#
+# Can bind the interface to an IP at the docker layer:
+#
+#     -p 127.0.0.1:27017:27017
+#
 # http://charlesreid1.com/wiki/Docker/Basics
 
 debug=false
@@ -16,7 +20,7 @@ if [ "$debug" == true ]; then
 
     docker run \
         --name happy_mongo \
-        -p 27017:27017 \
+        -p 127.0.0.1:27017:27017 \
         -v /opt/mongodb:/data \
         -ti jupitermongo \
         /bin/bash
@@ -25,19 +29,10 @@ else
 
     docker run \
         --name happy_mongo \
-        -p 27017:27017 \
+        -p 127.0.0.1:27017:27017 \
         -v /opt/mongodb:/data \
         -d \
         -ti jupitermongo 
 
 fi
-
-#    -d \
-#    --network=host \
-#    -p 10.6.0.1:27017:27017 \
-#    -p 127.0.0.1:27017:27017 \
-
-# Add this to expose the web interface for MongoDB
-# (also update the Dockerfile):
-#-p 28017:28017 \
 
