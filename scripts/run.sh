@@ -7,4 +7,4 @@ fi
 
 # Start MongoDB
 echo "Starting MongoDB..."
-/usr/bin/mongod --dbpath /data 
+/usr/bin/mongod --journal --dbpath /data 

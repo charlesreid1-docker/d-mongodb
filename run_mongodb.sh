@@ -7,17 +7,10 @@
 # 
 # http://charlesreid1.com/wiki/Docker/Basics
 
-function usage {
-    echo ""
-    echo "run_mongodb.sh script:"
-    echo "run the mongodb docker container."
-    echo ""
-    echo "        ./run_mongodb.sh"
-    echo ""
-}
+debug=false
+#debug=true
 
-#debug=false
-debug=true
+docker ps -qa | xargs docker rm
 
 if [ "$debug" == true ]; then
 
@@ -28,7 +21,7 @@ if [ "$debug" == true ]; then
         -ti jupitermongo \
         /bin/bash
 
-else:
+else
 
     docker run \
         --name happy_mongo \

@@ -10,8 +10,11 @@ else
     ROLE=${MONGODB_ROLE:-dbAdminAnyDatabase}
 fi
 
+# Repair database
+/usr/bin/mongod --repair --dbpath /data
+
 # Start MongoDB service
-/usr/bin/mongod --dbpath /data --nojournal &
+/usr/bin/mongod --dbpath /data &
 while ! nc -vz localhost 27017; do sleep 1; done
 
 # Create User

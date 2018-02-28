@@ -158,3 +158,56 @@ $ docker run -d \
     mongodb
 ```
 
+
+
+---
+
+
+## Some Big Stupid Problems
+
+A big huge waste of time working out some
+big huge persistent finnicky problems that were
+extremely difficult to track down. End lessons:
+
+1. Lots of finnicky problems. Things that would
+be set up the exact same way, then show different 
+problems. That was a sign there might be issues
+with the Docker container being able to write to 
+the files. 
+
+2. The data directory I was using (and have seen 
+online in several places) is `/data/db` but this 
+was straight up wrong and caused me to lose all 
+my data. It should have been `/data`.
+
+3. Checked and had to fix permissions of the directory
+being shared as the data directory. Mongo user.
+
+4. The lock file issues were resolved by turning 
+on journaling with the --jorurnal flag, but issues
+still persisted.
+
+5. Running interactively kept showing connection problems
+with localhost port 27017, these actually turned out to
+be file repair issues. So I found the repair flag.
+
+6. After adding the repair step, had to work out 
+the order. The repair stape has to be called first
+and separate from everything in the first run
+script.
+
+7. Fix the mongodb scripts to use journaling
+and repair stuff and not NOT use journaling, etc.
+
+
+## Startup Script
+
+Call the included startup script 
+from `/etc/rc.local` as a regular
+user as follows:
+
+```
+su charles -c '/path/to/script.sh
+```
+
+
