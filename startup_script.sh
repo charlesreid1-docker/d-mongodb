@@ -12,10 +12,10 @@ docker ps -qa | xargs -I% docker rm -f %
 sleep 5;
 
 # run mongodb
-/home/charles/codes/docker/d-mongodb/run_mongodb.sh
+${HOME}/codes/docker/d-mongodb/run_mongodb.sh
 
 sleep 5;
 
 # run mongo express
-/home/charles/codes/docker/d-mongoexpress/run_stock.sh
+${HOME}/codes/docker/d-mongoexpress/run_stock.sh
 
