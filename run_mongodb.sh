@@ -21,7 +21,6 @@ docker ps -qa | xargs docker rm
 if [ "$debug" == true ]; then
 
     docker run \
-        --rm \
         --name happy_mongo \
         -p ${HOSTIP}:27017:27017 \
         -v /opt/mongodb:/data \
@@ -31,7 +30,6 @@ if [ "$debug" == true ]; then
 else
 
     docker run \
-        --rm \
         --name happy_mongo \
         -p ${HOSTIP}:27017:27017 \
         -v /opt/mongodb:/data \
